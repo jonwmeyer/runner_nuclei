@@ -1,6 +1,6 @@
 runner:
   name: Nuclei
-  description: A vulnerability scanner powered by simple YAML-based templates.
+  description: Vulnerability scanner designed to probe modern applications, infrastructure, cloud platforms, and networks.
   version: 0.0.1
 
 build:
