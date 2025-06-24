@@ -12,5 +12,5 @@
     export CGO_ENABLED=1
     mkdir -p /go/src
     mkdir -p /go/bin
-    cd /tmp &&go install -v github.com/projectdiscovery/nuclei/v3/cmd/nuclei@latest
+    cd /tmp && go install -v github.com/projectdiscovery/nuclei/v3/cmd/nuclei@latest
     echo "END: Building Nuclei"
