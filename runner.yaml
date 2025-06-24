@@ -1,11 +1,11 @@
 runner:
-  name: Uncover
-  description: Discover exposed assets on the internet using multiple search engines.
+  name: Nuclei
+  description: A vulnerability scanner powered by simple YAML-based templates.
   version: 0.0.1
 
 build:
   commands: |
-    echo "START: Building Uncover"
+    echo "START: Building Nuclei"
     apt-get update
     apt-get install -y ca-certificates
     apt-get install -y build-essential
@@ -18,8 +18,8 @@ build:
     ENV CGO_ENABLED=1
     mkdir -p /go/src
     mkdir -p /go/bin
-    cd /tmp && go install -v github.com/projectdiscovery/uncover/cmd/uncover@latest
-    echo "END: Building Uncover"
+    cd /tmp && go install -v github.com/projectdiscovery/nuclei/v3/cmd/nuclei@latest
+    echo "END: Building Nuclei"
 
 webform:
   - name: url
@@ -28,4 +28,4 @@ webform:
 
 launch:
   type: binary
-  command: /go/bin/uncover -h
+  command: /go/bin/nuclei -h

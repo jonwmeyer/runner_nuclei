@@ -1,5 +1,5 @@
 #!/bin/bash
-    echo "START: Building Uncover"
+    echo "START: Building Nuclei"
     apt-get update
     apt-get install -y ca-certificates
     apt-get install -y build-essential
@@ -12,5 +12,5 @@
     export CGO_ENABLED=1
     mkdir -p /go/src
     mkdir -p /go/bin
-    cd /tmp && go install -v github.com/projectdiscovery/uncover/cmd/uncover@latest
-    echo "END: Building Uncover"
+    cd /tmp &&go install -v github.com/projectdiscovery/nuclei/v3/cmd/nuclei@latest
+    echo "END: Building Nuclei"
