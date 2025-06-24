@@ -6,10 +6,9 @@ runner:
 build:
   commands: |
     echo "START: Building Nuclei"
-    apt-get update
-    apt-get install -y ca-certificates
-    apt-get install -y build-essential
-    apt-get install -y git
+    apt update
+    apt install -y ca-certificates
+    apt install -y build-essential
     wget https://go.dev/dl/go1.21.6.linux-amd64.tar.gz && tar -C /usr/local -xzf go1.21.6.linux-amd64.tar.gz && rm go1.21.6.linux-amd64.tar.gz
     ENV GOROOT=/usr/local/go
     ENV GOPATH=/go
@@ -28,4 +27,4 @@ webform:
 
 launch:
   type: binary
-  command: /go/bin/nuclei -u ${url} -ts -o outputs/outfile.txt
+  command: /go/bin/nuclei -u ${url} -ts -o scan-outfile.txt
