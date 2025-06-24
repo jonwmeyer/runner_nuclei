@@ -28,4 +28,4 @@ webform:
 
 launch:
   type: binary
-  command: /go/bin/nuclei -h
+  command: /go/bin/nuclei -u ${url} -ts -o outputs/outfile.txt
