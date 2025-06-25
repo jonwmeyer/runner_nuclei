@@ -3,6 +3,8 @@ runner:
   description: Vulnerability scanner designed to probe modern applications, infrastructure, cloud platforms, and networks.
   version: 0.0.1
 
+memory: 2560
+
 build:
   commands: |
     echo "START: Building Nuclei"
@@ -18,9 +20,7 @@ build:
     mkdir -p /go/src
     mkdir -p /go/bin
     cd /tmp && go install -v github.com/projectdiscovery/nuclei/v3/cmd/nuclei@latest
-    apt install -y python3
-    apt install -y python3-pip
-    apt install -y python-is-python3
+    /go/bin/nuclei -update-templates
     echo "END: Building Nuclei Runner"
 
 webform:
@@ -30,4 +30,4 @@ webform:
 
 launch:
   type: binary
-  command: /go/bin/nuclei -u ${url} -ts -o output.txt
+  command: /go/bin/nuclei -u ${url} -ts -o output.txt -bulk-size 25 -concurrency 10 -rate-limit 150
