@@ -30,4 +30,4 @@ webform:
 
 launch:
   type: binary
-  command: /go/bin/nuclei -u ${url} -ts -o output.txt -bulk-size 25 -concurrency 10 -rate-limit 150
+  command: /go/bin/nuclei -u ${url} -o outputs/output.txt 
