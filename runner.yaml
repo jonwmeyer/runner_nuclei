@@ -24,10 +24,10 @@ build:
     echo "END: Building Nuclei Runner"
 
 webform:
-  - name: target_url
+  - name: url
     prompt: URL
     type: text
 
 launch:
-  type: python
-  command: app.py ${target_url}
+  type: binary
+  command: /go/bin/nuclei -u ${url} -ts -o output.txt
