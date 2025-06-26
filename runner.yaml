@@ -9,18 +9,17 @@ build:
   commands: |
     echo "START: Building Nuclei"
     apt update
-    apt install -y ca-certificates
-    apt install -y build-essential
-    wget https://go.dev/dl/go1.21.6.linux-amd64.tar.gz && tar -C /usr/local -xzf go1.21.6.linux-amd64.tar.gz && rm go1.21.6.linux-amd64.tar.gz
-    ENV GOROOT=/usr/local/go
-    ENV GOPATH=/go
-    ENV PATH=$GOPATH/bin:$GOROOT/bin:$PATH
-    ENV GO111MODULE=on
-    ENV CGO_ENABLED=1
-    mkdir -p /go/src
-    mkdir -p /go/bin
-    cd /tmp && go install -v github.com/projectdiscovery/nuclei/v3/cmd/nuclei@latest
-    /go/bin/nuclei -update-templates
+    apt install -y ca-certificates wget unzip
+    # Download pre-built Nuclei binary
+    wget -q https://github.com/projectdiscovery/nuclei/releases/download/v3.4.5/nuclei_3.4.5_linux_amd64.zip
+    unzip nuclei_3.4.5_linux_amd64.zip
+    chmod +x nuclei
+    mv nuclei /usr/local/bin/
+    rm nuclei_3.4.5_linux_amd64.zip
+    # Pre-install templates during build phase
+    nuclei -update-templates
+    # Verify templates are installed
+    nuclei -list-templates | head -5
     echo "END: Building Nuclei Runner"
 
 webform:
@@ -30,4 +29,4 @@ webform:
 
 launch:
   type: binary
-  command: /go/bin/nuclei -u ${url}
+  command: nuclei -u ${url} -silent -no-interactsh -rate-limit 100 -bulk-size 10 -timeout 30
