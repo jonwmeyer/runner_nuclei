@@ -9,6 +9,7 @@ build:
   commands: |
     echo "START: Building Nuclei"
     apt update
+    apt install -y build-essential
     apt install -y ca-certificates wget unzip
     wget -q https://github.com/projectdiscovery/nuclei/releases/download/v3.4.5/nuclei_3.4.5_linux_amd64.zip
     unzip nuclei_3.4.5_linux_amd64.zip
