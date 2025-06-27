@@ -1,4 +1,3 @@
-
 import argparse
 import sys
 import os
@@ -12,8 +11,13 @@ def main():
     args = parser.parse_args()
 
     try:
-        run_nuclei_scan(args.url)
-
+        # Call run_nuclei_scan with the URL from command line argument
+        scan_output = run_nuclei_scan(args.url)
+        
+        if scan_output is None:
+            print("[!] Nuclei scan failed or returned no output")
+            return 1
+            
         # Create outputs directory if it doesn't exist
         output_dir = "outputs"
         os.makedirs(output_dir, exist_ok=True)
@@ -23,9 +27,10 @@ def main():
         filename = f"{timestamp}-scan.txt"
         filepath = os.path.join(output_dir, filename)
 
-        with open(filepath, "wb") as f:
-            f.write(api_response.image)
-        print(f"[*] Screenshot saved as {filepath}")
+        # Save the scan output to file
+        with open(filepath, "w") as f:
+            f.write(scan_output)
+        print(f"[*] Scan results saved as {filepath}")
         return 0
 
     except Exception as e:
