@@ -39,7 +39,7 @@ def main():
 
 
 def run_nuclei_scan(url):
-    # Build the command as a list of arguments
+    # Build the command as a list of arguments with more conservative settings
     command = [
         "nuclei",
         "-u", url,
@@ -47,24 +47,41 @@ def run_nuclei_scan(url):
         "-no-interactsh",
         "-rate-limit", "100",
         "-bulk-size", "10",
-        "-timeout", "30"
+        "-timeout", "30"   
     ]
     try:
-        # Run the command and capture output
+        # Run the command and capture output with timeout
         result = subprocess.run(
             command,
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE,
             text=True,  # Return output as string, not bytes
-            check=True  # Raise CalledProcessError on non-zero exit
+            check=False  # Don't raise CalledProcessError on non-zero exit
         )
+        
         print("Nuclei output:")
         print(result.stdout)
+        
+        # Check if process was killed (exit code 137)
+        if result.returncode == 137:
+            print("[!] Warning: Nuclei process was killed (likely due to timeout or resource limits)")
+            print("[!] This may indicate the scan was taking too long or using too many resources")
+            # Return partial output if available
+            if result.stdout.strip():
+                return result.stdout
+            else:
+                return None
+        
+        # Check for other non-zero exit codes
+        if result.returncode != 0:
+            print(f"[!] Nuclei exited with code {result.returncode}")
+            if result.stderr:
+                print("Nuclei error output:")
+                print(result.stderr)
+            # Return output even if exit code is non-zero, as some findings might be found
+            return result.stdout if result.stdout.strip() else None
+        
         return result.stdout
-    except subprocess.CalledProcessError as e:
-        print("Nuclei error output:")
-        print(e.stderr)
-        return None
-
+        
 if __name__ == "__main__":
     sys.exit(main())

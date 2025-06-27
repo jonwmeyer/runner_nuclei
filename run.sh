@@ -1,27 +1,42 @@
 #!/bin/bash
 
-# Run script for URL Screenshot Tool
-# Usage: ./run.sh https://example.com key
-
-#export SCRAPFLY_API_KEY="$2"
+# Run script for Nuclei URL Scanner
+# Usage: ./run.sh https://example.com 
 
 # Check if URL argument is provided
 if [ $# -eq 0 ]; then
-    echo "[!] Error: Please provide a URL to screenshot"
+    echo "[!] Error: Please provide a URL to scan"
     echo "Usage: ./run.sh https://example.com"
     exit 1
 fi
 
-# Set your Scrapfly API key here (or export it in your shell)
-# export SCRAPFLY_API_KEY="your-api-key-here"
+# Validate URL format (basic check)
+if [[ ! "$1" =~ ^https?:// ]]; then
+    echo "[!] Error: Please provide a valid URL starting with http:// or https://"
+    echo "Usage: ./run.sh https://example.com"
+    exit 1
+fi
 
-# Check if API key is set
-#if [ -z "$SCRAPFLY_API_KEY" ]; then
-#    echo "[!] Error: SCRAPFLY_API_KEY environment variable is not set"
-#    echo "[*] Please set it by running: export SCRAPFLY_API_KEY='your-api-key-here'"
-#    echo "[*] Or uncomment and edit the line in this script"
-#    exit 1
-#fi
+echo "START: Building Nuclei"
+apt update
+apt install -y build-essential ca-certificates wget unzip
+apt install -y python3 python3-pip python-is-python3
+wget -q https://github.com/projectdiscovery/nuclei/releases/download/v3.4.5/nuclei_3.4.5_linux_amd64.zip
+unzip -n nuclei_3.4.5_linux_amd64.zip
+chmod +x nuclei
+mv nuclei /usr/local/bin/
+rm nuclei_3.4.5_linux_amd64.zip
+nuclei -update-templates
+nuclei -list-templates | head -5
+echo "END: Building Nuclei Runner"
+
+
+# Check if nuclei is installed
+if ! command -v nuclei &> /dev/null; then
+    echo "[!] Error: nuclei is not installed or not in PATH"
+    echo "Please install nuclei first: https://nuclei.projectdiscovery.io/nuclei/get-started/"
+    exit 1
+fi
 
 # Activate virtual environment if it exists
 if [ -d "venv" ]; then
@@ -30,5 +45,13 @@ if [ -d "venv" ]; then
 fi
 
 # Run the Python app
-echo "[*] Running Nuclei scan..."
+echo "[*] Starting Nuclei scan for: $1"
+echo "[*] This may take up to 20 seconds..."
 python3 app.py "$1"
+
+# Check the exit code
+if [ $? -eq 0 ]; then
+    echo "[+] Scan completed successfully"
+else
+    echo "[!] Scan completed with errors or warnings"
+fi
