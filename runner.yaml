@@ -27,4 +27,4 @@ webform:
 
 launch:
   type: binary
-  command: python3 app.py ${url}
+  command: python3 test_app.py ${url}
