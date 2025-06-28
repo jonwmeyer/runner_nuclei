@@ -39,16 +39,17 @@ def main():
 
 
 def run_nuclei_scan(url):
-    # Build the command as a list of arguments with more conservative settings
+    # Build the command as a list of arguments with very conservative settings
     command = [
         "nuclei",
         "-u", url,
         "-silent",
         "-no-interactsh",
-        "-rate-limit", "25",  # Much more conservative rate limit
-        "-bulk-size", "3",    # Smaller bulk size
-        "-timeout", "60",     # Shorter timeout to avoid resource issues
-        "-c", "25"            # Lower concurrency
+        "-rate-limit", "10",  # Very conservative rate limit
+        "-bulk-size", "1",    # Single request at a time
+        "-timeout", "30",     # Shorter timeout
+        "-c", "5",            # Very low concurrency
+        "-severity", "critical,high"  # Only scan for critical and high severity issues
     ]
     
     # Debug: Print the exact command being executed
@@ -61,12 +62,22 @@ def run_nuclei_scan(url):
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE,
             text=True,  # Return output as string, not bytes
-            timeout=90,  # Shorter Python timeout
+            timeout=45,  # Shorter Python timeout
             check=False  # Don't raise CalledProcessError on non-zero exit
         )
         
         print("Nuclei output:")
         print(result.stdout)
+        
+        # Check if process was killed by SIGKILL (exit code -9)
+        if result.returncode == -9:
+            print("[!] Warning: Nuclei process was killed by SIGKILL (likely due to memory/resource limits)")
+            print("[!] This indicates the process was using too much memory or CPU")
+            # Return partial output if available
+            if result.stdout.strip():
+                return result.stdout
+            else:
+                return None
         
         # Check if process was killed (exit code 137)
         if result.returncode == 137:
@@ -90,7 +101,7 @@ def run_nuclei_scan(url):
         return result.stdout
         
     except subprocess.TimeoutExpired:
-        print("[!] Nuclei scan timed out after 90 seconds")
+        print("[!] Nuclei scan timed out after 45 seconds")
         return None
     except FileNotFoundError:
         print("[!] Error: nuclei command not found. Please ensure nuclei is installed and in PATH")
