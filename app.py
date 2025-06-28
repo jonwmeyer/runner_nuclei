@@ -45,9 +45,10 @@ def run_nuclei_scan(url):
         "-u", url,
         "-silent",
         "-no-interactsh",
-        "-rate-limit", "100",
-        "-bulk-size", "10",
-        "-timeout", "30"   
+        "-rate-limit", "100",  # Reduced from 100 to 50
+        "-bulk-size", "10",    # Reduced from 10 to 5
+        "-timeout", "300",     # Reduced from 30 to 15 seconds
+        "-c", "100" 
     ]
     try:
         # Run the command and capture output with timeout
@@ -56,6 +57,7 @@ def run_nuclei_scan(url):
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE,
             text=True,  # Return output as string, not bytes
+            timeout=360,  # Add Python-level timeout (slightly longer than nuclei timeout)
             check=False  # Don't raise CalledProcessError on non-zero exit
         )
         
@@ -83,5 +85,15 @@ def run_nuclei_scan(url):
         
         return result.stdout
         
+    except subprocess.TimeoutExpired:
+        print("[!] Nuclei scan timed out after 360 seconds")
+        return None
+    except FileNotFoundError:
+        print("[!] Error: nuclei command not found. Please ensure nuclei is installed and in PATH")
+        return None
+    except Exception as e:
+        print(f"[!] Unexpected error running nuclei: {e}")
+        return None
+
 if __name__ == "__main__":
     sys.exit(main())

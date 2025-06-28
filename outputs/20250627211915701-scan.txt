@@ -1,0 +1,25 @@
+[[92mazure-domain-tenant[0m] [[94mhttp[0m] [[34minfo[0m] https://login.microsoftonline.com:443/example.com/v2.0/.well-known/openid-configuration [[96m"c7c08208-4f4d-45f1-83cd-5e2f491ab786"[0m]
+[[92mwaf-detect[0m:[1;92makamai[0m] [[94mhttp[0m] [[34minfo[0m] https://example.com
+[[92mtls-version[0m] [[94mssl[0m] [[34minfo[0m] example.com:443 [[96m"tls12"[0m]
+[[92mtls-version[0m] [[94mssl[0m] [[34minfo[0m] example.com:443 [[96m"tls13"[0m]
+[[92mhttp-missing-security-headers[0m:[1;92mx-content-type-options[0m] [[94mhttp[0m] [[34minfo[0m] https://example.com
+[[92mhttp-missing-security-headers[0m:[1;92mreferrer-policy[0m] [[94mhttp[0m] [[34minfo[0m] https://example.com
+[[92mhttp-missing-security-headers[0m:[1;92mcross-origin-embedder-policy[0m] [[94mhttp[0m] [[34minfo[0m] https://example.com
+[[92mhttp-missing-security-headers[0m:[1;92mcross-origin-opener-policy[0m] [[94mhttp[0m] [[34minfo[0m] https://example.com
+[[92mhttp-missing-security-headers[0m:[1;92mx-frame-options[0m] [[94mhttp[0m] [[34minfo[0m] https://example.com
+[[92mhttp-missing-security-headers[0m:[1;92mx-permitted-cross-domain-policies[0m] [[94mhttp[0m] [[34minfo[0m] https://example.com
+[[92mhttp-missing-security-headers[0m:[1;92mclear-site-data[0m] [[94mhttp[0m] [[34minfo[0m] https://example.com
+[[92mhttp-missing-security-headers[0m:[1;92mcross-origin-resource-policy[0m] [[94mhttp[0m] [[34minfo[0m] https://example.com
+[[92mhttp-missing-security-headers[0m:[1;92mstrict-transport-security[0m] [[94mhttp[0m] [[34minfo[0m] https://example.com
+[[92mhttp-missing-security-headers[0m:[1;92mcontent-security-policy[0m] [[94mhttp[0m] [[34minfo[0m] https://example.com
+[[92mhttp-missing-security-headers[0m:[1;92mpermissions-policy[0m] [[94mhttp[0m] [[34minfo[0m] https://example.com
+[[92mrdap-whois[0m:[1;92mstatus[0m] [[94mhttp[0m] [[34minfo[0m] https://rdap.verisign.com/com/v1/domain/example.com [[96m"client transfer prohibited"[0m,[96m"client update prohibited"[0m,[96m"client delete prohibited"[0m]
+[[92mrdap-whois[0m:[1;92mregistrationDate[0m] [[94mhttp[0m] [[34minfo[0m] https://rdap.verisign.com/com/v1/domain/example.com [[96m"1995-08-14T04:00:00Z"[0m]
+[[92mrdap-whois[0m:[1;92mlastChangeDate[0m] [[94mhttp[0m] [[34minfo[0m] https://rdap.verisign.com/com/v1/domain/example.com [[96m"2024-08-14T07:01:34Z"[0m]
+[[92mrdap-whois[0m:[1;92mexpirationDate[0m] [[94mhttp[0m] [[34minfo[0m] https://rdap.verisign.com/com/v1/domain/example.com [[96m"2025-08-13T04:00:00Z"[0m]
+[[92mrdap-whois[0m:[1;92mnameServers[0m] [[94mhttp[0m] [[34minfo[0m] https://rdap.verisign.com/com/v1/domain/example.com [[96m"B.IANA-SERVERS.NET"[0m,[96m"A.IANA-SERVERS.NET"[0m]
+[[92mrdap-whois[0m:[1;92msecureDNS[0m] [[94mhttp[0m] [[34minfo[0m] https://rdap.verisign.com/com/v1/domain/example.com [[96m"true"[0m]
+[[92makamai-detect[0m] [[94mhttp[0m] [[34minfo[0m] https://example.com
+[[92mssl-issuer[0m] [[94mssl[0m] [[34minfo[0m] example.com:443 [[96m"DigiCert Inc"[0m]
+[[92mssl-dns-names[0m] [[94mssl[0m] [[34minfo[0m] example.com:443 [[96m"*.example.com"[0m,[96m"example.com"[0m]
+[[92mwildcard-tls[0m] [[94mssl[0m] [[34minfo[0m] example.com:443 [[96m"CN: *.example.com"[0m,[96m"SAN: [*.example.com example.com]"[0m]

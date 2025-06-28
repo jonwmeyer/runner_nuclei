@@ -17,18 +17,18 @@ if [[ ! "$1" =~ ^https?:// ]]; then
     exit 1
 fi
 
-echo "START: Building Nuclei"
-apt update
-apt install -y build-essential ca-certificates wget unzip
-apt install -y python3 python3-pip python-is-python3
-wget -q https://github.com/projectdiscovery/nuclei/releases/download/v3.4.5/nuclei_3.4.5_linux_amd64.zip
-unzip -n nuclei_3.4.5_linux_amd64.zip
-chmod +x nuclei
-mv nuclei /usr/local/bin/
-rm nuclei_3.4.5_linux_amd64.zip
-nuclei -update-templates
-nuclei -list-templates | head -5
-echo "END: Building Nuclei Runner"
+#echo "START: Building Nuclei"
+#apt update
+#apt install -y build-essential ca-certificates wget unzip
+#apt install -y python3 python3-pip python-is-python3
+#wget -q https://github.com/projectdiscovery/nuclei/releases/download/v3.4.5/nuclei_3.4.5_linux_amd64.zip
+#unzip -n nuclei_3.4.5_linux_amd64.zip
+#chmod +x nuclei
+#mv nuclei /usr/local/bin/
+#rm nuclei_3.4.5_linux_amd64.zip
+#nuclei -update-templates
+#nuclei -list-templates | head -5
+#echo "END: Building Nuclei Runner"
 
 
 # Check if nuclei is installed
@@ -46,7 +46,6 @@ fi
 
 # Run the Python app
 echo "[*] Starting Nuclei scan for: $1"
-echo "[*] This may take up to 20 seconds..."
 python3 app.py "$1"
 
 # Check the exit code

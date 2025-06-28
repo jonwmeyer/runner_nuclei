@@ -10,4 +10,5 @@
     rm nuclei_3.4.5_linux_amd64.zip
     nuclei -update-templates
     nuclei -list-templates | head -5
+    rm README_*
     echo "END: Building Nuclei Runner"
