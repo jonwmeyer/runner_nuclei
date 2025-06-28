@@ -49,8 +49,7 @@ def run_nuclei_scan(url):
         "-bulk-size", "1",      # Single request
         "-timeout", "15",       # Short timeout
         "-c", "1",              # Single concurrent request
-        "-severity", "critical", # Only critical severity
-        "-limit", "10"          # Limit to 10 templates maximum
+        "-severity", "critical" # Only critical severity
     ]
     
     # Debug: Print the exact command being executed
