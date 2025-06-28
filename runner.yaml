@@ -3,7 +3,7 @@ runner:
   description: Vulnerability scanner designed to probe modern applications, infrastructure, cloud platforms, and networks.
   version: 0.0.1
 
-memory: 2560
+memory: 5120
 
 build:
   commands: |
