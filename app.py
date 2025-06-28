@@ -39,30 +39,31 @@ def main():
 
 
 def run_nuclei_scan(url):
-    # Build the command as a list of arguments with very conservative settings
+    # Build the command with minimal, ultra-conservative settings
     command = [
         "nuclei",
         "-u", url,
         "-silent",
         "-no-interactsh",
-        "-rate-limit", "10",  # Very conservative rate limit
-        "-bulk-size", "1",    # Single request at a time
-        "-timeout", "30",     # Shorter timeout
-        "-c", "5",            # Very low concurrency
-        "-severity", "critical,high"  # Only scan for critical and high severity issues
+        "-rate-limit", "5",     # Very slow rate limit
+        "-bulk-size", "1",      # Single request
+        "-timeout", "15",       # Short timeout
+        "-c", "1",              # Single concurrent request
+        "-severity", "critical", # Only critical severity
+        "-limit", "10"          # Limit to 10 templates maximum
     ]
     
     # Debug: Print the exact command being executed
     print(f"[DEBUG] Executing command: {' '.join(command)}")
     
     try:
-        # Run the command and capture output with timeout
+        # Run the command with very short timeout
         result = subprocess.run(
             command,
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE,
             text=True,  # Return output as string, not bytes
-            timeout=45,  # Shorter Python timeout
+            timeout=25,  # Very short timeout
             check=False  # Don't raise CalledProcessError on non-zero exit
         )
         
@@ -101,7 +102,7 @@ def run_nuclei_scan(url):
         return result.stdout
         
     except subprocess.TimeoutExpired:
-        print("[!] Nuclei scan timed out after 45 seconds")
+        print("[!] Nuclei scan timed out after 25 seconds")
         return None
     except FileNotFoundError:
         print("[!] Error: nuclei command not found. Please ensure nuclei is installed and in PATH")
