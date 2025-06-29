@@ -3,6 +3,7 @@
     apt update
     apt install -y build-essential ca-certificates wget unzip
     apt install -y python3 python3-pip python-is-python3
+    #go install -v github.com/projectdiscovery/nuclei/v3/cmd/nuclei@latest
     wget -q https://github.com/projectdiscovery/nuclei/releases/download/v3.4.5/nuclei_3.4.5_linux_amd64.zip
     unzip -n nuclei_3.4.5_linux_amd64.zip
     chmod +x nuclei

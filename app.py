@@ -39,15 +39,9 @@ def main():
 
 
 def run_nuclei_scan(url):
-    # Build the command with absolute minimal settings
     command = [
         "nuclei",
-        "-u", url,
-        "-silent",
-        "-no-interactsh",
-        "-rate-limit", "1",     # Extremely slow rate limit
-        "-timeout", "10",       # Very short timeout
-        "-severity", "critical" # Only critical severity
+        "-u", url
     ]
     
     # Debug: Print the exact command being executed
@@ -60,7 +54,6 @@ def run_nuclei_scan(url):
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE,
             text=True,  # Return output as string, not bytes
-            timeout=600,  # Very short timeout
             check=False  # Don't raise CalledProcessError on non-zero exit
         )
         

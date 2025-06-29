@@ -1,0 +1,6 @@
+[[92mazure-domain-tenant[0m] [[94mhttp[0m] [[34minfo[0m] https://login.microsoftonline.com:443/example.com/v2.0/.well-known/openid-configuration [[96m"c7c08208-4f4d-45f1-83cd-5e2f491ab786"[0m]
+[[92mwaf-detect[0m:[1;92makamai[0m] [[94mhttp[0m] [[34minfo[0m] https://example.com
+[[92makamai-detect[0m] [[94mhttp[0m] [[34minfo[0m] https://example.com
+[[92mssl-issuer[0m] [[94mssl[0m] [[34minfo[0m] example.com:443 [[96m"DigiCert Inc"[0m]
+[[92mssl-dns-names[0m] [[94mssl[0m] [[34minfo[0m] example.com:443 [[96m"*.example.com"[0m,[96m"example.com"[0m]
+[[92mwildcard-tls[0m] [[94mssl[0m] [[34minfo[0m] example.com:443 [[96m"CN: *.example.com"[0m,[96m"SAN: [*.example.com example.com]"[0m]

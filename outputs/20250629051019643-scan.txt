@@ -1,0 +1,3 @@
+[[92mssl-issuer[0m] [[94mssl[0m] [[34minfo[0m] example.com:443 [[96m"DigiCert Inc"[0m]
+[[92mssl-dns-names[0m] [[94mssl[0m] [[34minfo[0m] example.com:443 [[96m"*.example.com"[0m,[96m"example.com"[0m]
+[[92mwildcard-tls[0m] [[94mssl[0m] [[34minfo[0m] example.com:443 [[96m"CN: *.example.com"[0m,[96m"SAN: [*.example.com example.com]"[0m]
